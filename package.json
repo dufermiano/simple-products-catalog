@@ -1,0 +1,37 @@
+{
+  "name": "sbf-challenge",
+  "version": "1.0.0",
+  "description": "Technical challenge for SBF",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "swagger-autogen": "node swagger.js"
+  },
+  "repository": "git+https://github.com/dufermiano/backend-SBF",
+  "author": "Eduardo Fermiano (dufermiano43@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dufermiano/backend-SBF/issues"
+  },
+  "homepage": "https://github.com/dufermiano/backend-SBF#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "moment-timezone": "^0.5.33",
+    "mysql2": "^2.3.0",
+    "nodemon": "^2.0.12",
+    "swagger-autogen": "^2.11.2",
+    "swagger-ui-express": "^4.1.6",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.3.2"
+  }
+}
