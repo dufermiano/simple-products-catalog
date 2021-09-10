@@ -5,11 +5,11 @@ CREATE TABLE IF NOT EXISTS PRODUCTS(
     inventory INT(50),
     size VARCHAR (3),
     gender VARCHAR(15),
-    active BIT(1),
+    active boolean,
     registrationDate DATETIME NOT NULL
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
-INSERT INTO PRODUCTS(name, value, inventory, gender, registrationDate) VALUES ("Tênis Nike Shox R4", "529,99", 10, "Masculino", 1, now());
-INSERT INTO PRODUCTS(name, value, inventory, size, gender, registrationDate) VALUES ("Camiseta Nike Legend 2.0", "89,99", 11, "M" ,"Masculino", 1, now());
-INSERT INTO PRODUCTS(name, value, inventory, size, gender, registrationDate) VALUES ("Agasalho Nike Sportswear", "239,99", 15, "G" ,"Feminino", 1, now());
-INSERT INTO PRODUCTS(name, value, inventory, gender, registrationDate) VALUES ("Mochila Nike Tanjun", "129,99", 7, "Feminino", 1, now());
+INSERT INTO PRODUCTS(name, value, inventory, gender, active, registrationDate) VALUES ("Tênis Nike Shox R4", 529.99, 10, "Masculino", 1, now());
+INSERT INTO PRODUCTS(name, value, inventory, size, gender, active, registrationDate) VALUES ("Camiseta Nike Legend 2.0", "89.99", 11, "M" ,"Masculino", 1, now());
+INSERT INTO PRODUCTS(name, value, inventory, size, gender, active, registrationDate) VALUES ("Agasalho Nike Sportswear", "239.99", 15, "G" ,"Feminino", 1, now());
+INSERT INTO PRODUCTS(name, value, inventory, gender, active, registrationDate) VALUES ("Mochila Nike Tanjun", "129.99", 7, "Feminino", 1, now());
