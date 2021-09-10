@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "swagger-autogen": "node swagger.js"
+    "start": "node swagger.js"
   },
   "repository": "git+https://github.com/dufermiano/backend-SBF",
   "author": "Eduardo Fermiano (dufermiano43@gmail.com)",
@@ -16,6 +15,7 @@
   },
   "homepage": "https://github.com/dufermiano/backend-SBF#readme",
   "dependencies": {
+    "axios": "^0.21.4",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
