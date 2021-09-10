@@ -22,13 +22,19 @@ const doc = {
     },
   ],
   definitions: {
-    CurrencyResponse: {
-      $name: "Tênis Nike Shox R4",
-      $baseValue: 529.99,
-      $USDValue: 98.23,
-      $EURValue: 83.26,
-      $INRValue: 7318.93,
-      dateOfRegistration: "2021-08-31 17:05:19",
+    ProductResponse: {
+      name: "Tênis Nike Shox R4",
+      value: 529.99,
+      inventory: 10,
+      gender: "Masculino",
+      size: "null",
+      active: 1,
+      registratioDate: "2021-09-10T00:16:13.000Z",
+      currencies: {
+        $USDValue: 98.23,
+        $EURValue: 83.26,
+        $INRValue: 7318.93,
+      },
     },
     ProductBody: {
       $name: "Tênis Nike Shox R4",
@@ -43,8 +49,11 @@ const doc = {
       inventory: 10,
       size: "GG",
       gender: "Masculino",
+      active: 0,
     },
   },
 };
 
-swaggerAutogen(outputFile, endpointsFiles, doc).then();
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+  require("./index.js");
+});
