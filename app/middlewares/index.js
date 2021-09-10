@@ -27,10 +27,23 @@ const productsSchema = (req, res, next) => {
     name: Joi.string().required(),
     value: Joi.number().required(),
     inventory: Joi.number().integer().required(),
-    size: Joi.string().max(3).required(),
-    gender: Joi.string().required(),
-    description: Joi.string().required(),
+    size: Joi.string().max(3),
+    gender: Joi.string(),
   }).required();
+
+  validateRequest(req, res, next, schema);
+};
+
+const productsToUpdateSchema = (req, res, next) => {
+  const schema = Joi.object({
+    name: Joi.string(),
+    value: Joi.number(),
+    inventory: Joi.number().integer(),
+    size: Joi.string().max(3),
+    gender: Joi.string(),
+  })
+    .required()
+    .min(1);
 
   validateRequest(req, res, next, schema);
 };
@@ -48,4 +61,5 @@ const errorMiddleware = (_error, _req, res, _next) => {
 module.exports = {
   productsSchema,
   errorMiddleware,
+  productsToUpdateSchema,
 };
