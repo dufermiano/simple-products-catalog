@@ -136,7 +136,7 @@ const createProduct = async (req, res, next) => {
 
     conn.end();
 
-    return res.status(statusCode.Created).send({
+    return res.status(statusCode.Created).json({
       message: messages.productCreated,
     });
   } catch (error) {
@@ -189,7 +189,7 @@ const updateProduct = async (req, res, next) => {
     if (rows.length > 0) {
       await productsDao.save(body, id);
 
-      return res.status(statusCode.Success).send({
+      return res.status(statusCode.Success).json({
         message: messages.productUpdated,
       });
     }

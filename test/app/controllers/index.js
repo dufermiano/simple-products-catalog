@@ -68,7 +68,7 @@ describe("Unit tests for products controllers", () => {
   });
   context("Gets functions", () => {
     context("Get By ID", () => {
-      it("Should execute query successfully and gets a product by its id - Get By Id", async () => {
+      it("Should execute query successfully and gets a product by its id and a success status code", async () => {
         mockResult = {
           name: "Tênis Nike Shox R4",
           value: 529.99,
@@ -105,7 +105,7 @@ describe("Unit tests for products controllers", () => {
         expect(res.status.calledWith(200)).to.be.equal(true);
         expect(res.json.args[0][0]).to.be.eql(mockResult);
       });
-      it("Should execute query successfully and return an empty object and 404 code if product doesn't exist", async () => {
+      it("Should execute query successfully and return an empty object and not found status code if product doesn't exist", async () => {
         mockMysql.expects("createConnection").returns({
           connect: () => {
             console.log("Succesfully connected");
@@ -152,7 +152,7 @@ describe("Unit tests for products controllers", () => {
     });
 
     context("GetProducts", () => {
-      it("Should return an empty object when database is empty", async () => {
+      it("Should return an empty object when database is empty and success status code", async () => {
         mockMysql.expects("createConnection").returns({
           connect: () => {
             console.log("Succesfully connected");
@@ -174,7 +174,7 @@ describe("Unit tests for products controllers", () => {
         expect(res.json.args[0][0]).to.be.eql([]);
       });
 
-      it("Should execute query successfully and fetch all products", async () => {
+      it("Should execute query successfully and fetch all products and success status code", async () => {
         const mockDBResult = [
           {
             name: "Tênis Nike Shox R4",
@@ -267,6 +267,139 @@ describe("Unit tests for products controllers", () => {
         expect(res.status.called).false;
         expect(res.json.called).false;
         expect(next.called).true;
+      });
+    });
+  });
+
+  context("Create product function", () => {
+    it("When it throws, should call next function", async () => {
+      mockMysql.expects("createConnection").returns({
+        connect: () => {
+          console.log("Succesfully connected");
+        },
+        query: (query, vars) => {
+          return [[]];
+        },
+        end: () => sinon.stub(),
+      });
+
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      await produtctsController.createProduct({}, {}, next);
+
+      expect(res.status.called).false;
+      expect(res.json.called).false;
+      expect(next.called).true;
+    });
+
+    it("When a product is created, returns a success message and created status code", async () => {
+      mockMysql.expects("createConnection").returns({
+        connect: () => {
+          console.log("Succesfully connected");
+        },
+        query: (query, vars) => {
+          return "Ok";
+        },
+        end: () => sinon.stub(),
+      });
+
+      const req = { body: {} };
+
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      await produtctsController.createProduct(req, res, next);
+
+      expect(res.status.called).true;
+      expect(res.json.called).true;
+      expect(res.status.calledWith(201)).to.be.equal(true);
+      expect(res.json.args[0][0]).to.be.eql({
+        message: messages.productCreated,
+      });
+    });
+  });
+
+  context("Update product function", () => {
+    it("When it throws, should call next function", async () => {
+      mockMysql.expects("createConnection").returns({
+        connect: () => {
+          console.log("Succesfully connected");
+        },
+        query: (query, vars) => {
+          return [[]];
+        },
+        end: () => sinon.stub(),
+      });
+
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      await produtctsController.updateProduct({}, {}, next);
+
+      expect(res.status.called).false;
+      expect(res.json.called).false;
+      expect(next.called).true;
+    });
+
+    it("When a product is updated, returns a success message and status code", async () => {
+      mockResult = {
+        name: "Tênis Nike Shox R4",
+        value: 529.99,
+        inventory: 10,
+        gender: "Masculino",
+        size: "null",
+        active: 1,
+        registratioDate: "2021-09-10T00:16:13.000Z",
+      };
+
+      mockMysql.expects("createConnection").returns({
+        connect: () => {
+          console.log("Succesfully connected");
+        },
+        query: (query, vars) => {
+          return [[mockResult]];
+        },
+        end: () => sinon.stub(),
+      });
+
+      const req = { body: {}, params: { id: 1 } };
+
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      await produtctsController.updateProduct(req, res, next);
+
+      expect(res.status.called).true;
+      expect(res.json.called).true;
+      expect(res.status.calledWith(200)).to.be.equal(true);
+      expect(res.json.args[0][0]).to.be.eql({
+        message: messages.productUpdated,
+      });
+    });
+    it("When a product is supposed to be updated, but not found, returns a not found message and status code", async () => {
+      mockMysql.expects("createConnection").returns({
+        connect: () => {
+          console.log("Succesfully connected");
+        },
+        query: (query, vars) => {
+          return [[]];
+        },
+        end: () => sinon.stub(),
+      });
+
+      const req = { body: {}, params: { id: 1 } };
+
+      const res = mockResponse();
+      const next = sinon.stub();
+
+      await produtctsController.updateProduct(req, res, next);
+
+      expect(res.status.called).true;
+      expect(res.json.called).true;
+      expect(res.status.calledWith(404)).to.be.equal(true);
+      expect(res.json.args[0][0]).to.be.eql({
+        message: messages.productNotFound,
       });
     });
   });
