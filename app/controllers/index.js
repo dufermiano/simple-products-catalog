@@ -29,15 +29,22 @@ const getProducts = async (req, res, next) => {
 
     const products = Object.values(JSON.parse(JSON.stringify(rows)));
 
-    await products.map((product) => {
+    if (products.length === 0) {
+      conn.end();
+      return res.status(statusCode.Success).json(products);
+    }
+
+    const newProducts = await products.map((product) => {
       const result = calculateExchange(data, product.value);
 
       product.currencies = result;
+
+      return product;
     });
 
     conn.end();
 
-    return res.status(statusCode.Success).json(products);
+    return res.status(statusCode.Success).json(newProducts);
   } catch (error) {
     next(error);
   }
@@ -83,6 +90,7 @@ const getProductsById = async (req, res, next) => {
       const result = await calculateExchange(data, product.value);
 
       product.currencies = result;
+      conn.end();
 
       return res.status(statusCode.Success).json(product);
     }
