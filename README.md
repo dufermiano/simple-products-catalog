@@ -1,6 +1,6 @@
-# SBF-Challenge
+# simple-products-catalog
 
-Desafio técnico SBF - Eduardo Fermiano (dufermiano43@gmail.com)
+Catalogo simples de produtos - Eduardo Fermiano (dufermiano43@gmail.com)
 
 ![100% test coverage](https://img.shields.io/badge/coverage-100-green.svg)
 ![node-lts](https://img.shields.io/badge/Node.js-43853D)
